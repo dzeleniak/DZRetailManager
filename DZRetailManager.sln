@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DZRMDataManager", "DZRMDataManager\DZRMDataManager.csproj", "{3C7F1D3B-31D3-46EA-8F24-A408939D3088}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DZRMData", "DZRMData\DZRMData.sqlproj", "{17597B77-642B-4EF8-9016-6743199EAD47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DZRMDesktopUI", "DZRMDesktopUI\DZRMDesktopUI.csproj", "{AC4E7AB8-F44D-4F6E-9538-DAA8EECCCF75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,16 @@ Global
 		{3C7F1D3B-31D3-46EA-8F24-A408939D3088}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C7F1D3B-31D3-46EA-8F24-A408939D3088}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C7F1D3B-31D3-46EA-8F24-A408939D3088}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17597B77-642B-4EF8-9016-6743199EAD47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17597B77-642B-4EF8-9016-6743199EAD47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17597B77-642B-4EF8-9016-6743199EAD47}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{17597B77-642B-4EF8-9016-6743199EAD47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17597B77-642B-4EF8-9016-6743199EAD47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17597B77-642B-4EF8-9016-6743199EAD47}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{AC4E7AB8-F44D-4F6E-9538-DAA8EECCCF75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC4E7AB8-F44D-4F6E-9538-DAA8EECCCF75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC4E7AB8-F44D-4F6E-9538-DAA8EECCCF75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC4E7AB8-F44D-4F6E-9538-DAA8EECCCF75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
