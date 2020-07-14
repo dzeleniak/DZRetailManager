@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using DZRMDesktopUI.Helpers;
 using DZRMDesktopUI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace DZRMDesktopUI
 {
@@ -17,6 +19,12 @@ namespace DZRMDesktopUI
         public Bootstrapper()
         {
             Initialize();
+
+            ConventionManager.AddElementConvention<PasswordBox>(
+                PasswordBoxHelper.BoundPasswordProperty,
+                "Password",
+                "PasswordChanged"
+            );
         }
 
         protected override void Configure()
