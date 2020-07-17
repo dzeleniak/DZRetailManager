@@ -42,6 +42,36 @@ namespace DZRMDesktopUI.ViewModels
             }
         }
 
+        public bool IsErrorVisible
+        {
+            get 
+            {
+                bool output = false;
+
+                if(ErrorMessage?.Length > 0){ output = true; }
+
+                return output;
+            }
+
+            set { }
+
+        }
+
+        private string _errorMessage;
+
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set 
+            {
+                _errorMessage = value;
+                NotifyOfPropertyChange(() => ErrorMessage); 
+                NotifyOfPropertyChange(() => IsErrorVisible); 
+            }
+        }
+
+
+
         public bool CanLogin
         {
             get
@@ -61,13 +91,14 @@ namespace DZRMDesktopUI.ViewModels
         {
             try
             {
+                ErrorMessage = "";
                 var result = await _apiHelper.Authenticate(Username, Password);
                 Console.WriteLine("Success!");
             }
             catch (Exception ex)
             {
-
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Not Success :(");
+                ErrorMessage = ex.Message;
             }
         }
     }

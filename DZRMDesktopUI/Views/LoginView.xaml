@@ -19,6 +19,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 0 0 20"
@@ -26,20 +27,28 @@
             Login Form
         </TextBlock>
         
+        <!--Error Message-->
+        <TextBlock x:Name="ErrorMessage" Grid.Row="1" 
+                   Visibility="{Binding IsErrorVisible, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"
+                   Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center"
+                   Foreground="Red" MaxWidth="300" TextWrapping="Wrap"
+                   Margin="0 0 0 20"
+                   />
+
         <!--Username row-->
-        <TextBlock Grid.Row="1" Grid.Column="1" Text="Username:" 
-                   Margin="0 0 0 10"/>
-        <TextBox x:Name="Username" Grid.Row="1" Grid.Column="2" MinWidth="150" 
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="Username:" 
+                   Margin="0 0 10 10"/>
+        <TextBox x:Name="Username" Grid.Row="2" Grid.Column="2" MinWidth="350" 
                  Margin="0 0 0 10"/>
         
         <!--Password Row-->
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="Password:" 
-                   Margin="0 0 0 10"/>
-        <PasswordBox x:Name="Password" Grid.Row="2" Grid.Column="2" MinWidth="150" 
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="Password:" 
+                   Margin="0 0 10 10"/>
+        <PasswordBox x:Name="Password" Grid.Row="3" Grid.Column="2" MinWidth="350" 
                  Margin="0 0 0 20"/>
         
         <!--Login Row-->
-        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+        <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
                 Padding="20 5" Content="Login" x:Name="Login"
                 HorizontalAlignment="Center"/>
     </Grid>
