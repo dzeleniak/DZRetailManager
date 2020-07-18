@@ -9,6 +9,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DZRMData", "DZRMData\DZRMDa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DZRMDesktopUI", "DZRMDesktopUI\DZRMDesktopUI.csproj", "{AC4E7AB8-F44D-4F6E-9538-DAA8EECCCF75}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DZRMDataManager.Library", "DZRMDataManager.Library\DZRMDataManager.Library.csproj", "{F5684889-2A5A-435D-81AB-5CC1988D3C3F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{AC4E7AB8-F44D-4F6E-9538-DAA8EECCCF75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC4E7AB8-F44D-4F6E-9538-DAA8EECCCF75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC4E7AB8-F44D-4F6E-9538-DAA8EECCCF75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5684889-2A5A-435D-81AB-5CC1988D3C3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5684889-2A5A-435D-81AB-5CC1988D3C3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5684889-2A5A-435D-81AB-5CC1988D3C3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5684889-2A5A-435D-81AB-5CC1988D3C3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
