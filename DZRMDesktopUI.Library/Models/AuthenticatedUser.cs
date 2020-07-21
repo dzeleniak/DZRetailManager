@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DZRMDesktopUI.Models
+namespace DZRMDesktopUI.Library.Models
 {
     public class AuthenticatedUser
     {
