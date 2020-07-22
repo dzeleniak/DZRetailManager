@@ -35,12 +35,13 @@ namespace DZRMDesktopUI.ViewModels
         }
 
 
-        private string _itemQuantity;
+        private int _itemQuantity;
 
-        public string ItemQuantity
+        public int ItemQuantity
         {
             get { return _itemQuantity; }
-            set {
+            set 
+            {
                 _itemQuantity = value;
                 NotifyOfPropertyChange(() => ItemQuantity);
             }
@@ -96,6 +97,7 @@ namespace DZRMDesktopUI.ViewModels
                 return output;
             }
         }
+
         public void RemoveFromCart()
         {
 
@@ -112,6 +114,7 @@ namespace DZRMDesktopUI.ViewModels
                 return output;
             }
         }
+
         public void Checkout()
         {
 

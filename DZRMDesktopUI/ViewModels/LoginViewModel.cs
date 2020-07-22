@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DZRMDesktopUI.Library.API;
+using DZRMDesktopUI.EventModels;
 
 namespace DZRMDesktopUI.ViewModels
 {
@@ -13,12 +14,13 @@ namespace DZRMDesktopUI.ViewModels
     {
         private string _userName;
         private string _password;
-
         private IAPIHelper _apiHelper;
+        private IEventAggregator _events;
 
-        public LoginViewModel(IAPIHelper apiHelper)
+        public LoginViewModel(IAPIHelper apiHelper, IEventAggregator events)
         {
             _apiHelper = apiHelper;
+            _events = events;
         }
 
         public string Username
@@ -98,11 +100,10 @@ namespace DZRMDesktopUI.ViewModels
                 //Capture more information about the user
                 await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
 
-
+                _events.PublishOnUIThread(new LogOnEvent());
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Not Success :(");
                 ErrorMessage = ex.Message;
             }
         }
