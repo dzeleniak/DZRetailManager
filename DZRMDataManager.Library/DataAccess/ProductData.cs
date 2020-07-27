@@ -2,22 +2,19 @@
 using DZRMDataManager.Library.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DZRMDataManager.Library.DataAccess
 {
-    public class UserData
+    public class ProductData
     {
-        public List<UserModel> GetUserById(string Id)
+        public List<ProductModel> GetAllProducts()
         {
             SqlDataAccess sql = new SqlDataAccess();
 
-            var p = new { Id = Id };
-
-            var output = sql.LoadData<UserModel, dynamic>("dbo.spUserLookup", p, "DZRMData");
+            var output = sql.LoadData<ProductModel, dynamic>("dbo.spProduct_GetAll", new { }, "DZRMData");
 
             return output;
         }
