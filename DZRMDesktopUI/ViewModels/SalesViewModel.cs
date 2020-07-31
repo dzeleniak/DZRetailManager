@@ -1,6 +1,6 @@
 ﻿using Caliburn.Micro;
-using DZRMDesktopUI.Library.API;
 using DZRMDesktopUI.Library.Models;
+using DZRMDesktopUI.Library.API;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,9 +42,23 @@ namespace DZRMDesktopUI.ViewModels
             }
         }
 
-        private BindingList<ProductModel> _cart;
+        private ProductModel _selectedProduct;
 
-        public BindingList<ProductModel> Cart
+        public ProductModel SelectedProduct
+        {
+            get { return _selectedProduct; }
+            set 
+            { 
+                _selectedProduct = value;
+                NotifyOfPropertyChange(() => SelectedProduct);
+                NotifyOfPropertyChange(() => CanAddToCart);
+            }
+        }
+
+
+        private BindingList<CartItemModel> _cart = new BindingList<CartItemModel>();
+
+        public BindingList<CartItemModel> Cart
         {
             get { return _cart; }
             set 
@@ -55,7 +69,7 @@ namespace DZRMDesktopUI.ViewModels
         }
 
 
-        private int _itemQuantity;
+        private int _itemQuantity = 1;
 
         public int ItemQuantity
         {
@@ -64,15 +78,21 @@ namespace DZRMDesktopUI.ViewModels
             {
                 _itemQuantity = value;
                 NotifyOfPropertyChange(() => ItemQuantity);
+                NotifyOfPropertyChange(() => CanAddToCart);
             }
         }
 
         public string SubTotal
         {
             get
-            {
-                return "$0.00";
+            {                
+                return Cart.ToList()
+                    .Sum(x => x.Product.RetailPrice * x.QuantityInCart).ToString("C");
+                 
+                
             }
+
+
         }
         public string Tax
         {
@@ -95,7 +115,10 @@ namespace DZRMDesktopUI.ViewModels
             {
                 bool output = false;
 
-                //Make sure something is selected and there is a quantity
+                if (SelectedProduct?.QuantityInStock >= ItemQuantity && ItemQuantity > 0)
+                {
+                    output = true;
+                }
 
                 return output;
             }
@@ -103,6 +126,29 @@ namespace DZRMDesktopUI.ViewModels
 
         public void AddToCart()
         {
+            CartItemModel existingItem = Cart.FirstOrDefault(x => x.Product == SelectedProduct);
+            if(existingItem != null)
+            {
+                existingItem.QuantityInCart += ItemQuantity;
+                Cart.Remove(existingItem);
+                Cart.Add(existingItem);
+            }
+            else
+            {
+                CartItemModel item = new CartItemModel
+                {
+                    Product = SelectedProduct,
+                    QuantityInCart = ItemQuantity
+                };
+
+                Cart.Add(item);
+            }
+            
+            
+            SelectedProduct.QuantityInStock -= ItemQuantity;
+            ItemQuantity = 1;
+            NotifyOfPropertyChange(() => Cart);
+            NotifyOfPropertyChange(() => SubTotal);
 
         }
 
@@ -120,7 +166,7 @@ namespace DZRMDesktopUI.ViewModels
 
         public void RemoveFromCart()
         {
-
+            NotifyOfPropertyChange(() => SubTotal);
         }
 
         public bool CanCheckout

@@ -134,6 +134,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DZRMDataManager.Library\DZRMDataManager.Library.csproj">
+      <Project>{F5684889-2A5A-435D-81AB-5CC1988D3C3F}</Project>
+      <Name>DZRMDataManager.Library</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DZRMDesktopUI.Library\DZRMDesktopUI.Library.csproj">
       <Project>{fb48b312-2806-4fc5-b3a8-878383fd997c}</Project>
       <Name>DZRMDesktopUI.Library</Name>
