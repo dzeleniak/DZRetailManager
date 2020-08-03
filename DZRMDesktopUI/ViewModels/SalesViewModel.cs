@@ -7,15 +7,18 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DZRMDesktopUI.Library.Helpers;
 
 namespace DZRMDesktopUI.ViewModels
 {
     public class SalesViewModel : Screen
     {
-        private IProductEndpoint _productEndpoint;
-        public SalesViewModel(IProductEndpoint ProductEndpoint)
+        IProductEndpoint _productEndpoint;
+        IConfigHelper _configHelper;
+        public SalesViewModel(IProductEndpoint ProductEndpoint, IConfigHelper configHelper)
         {
             _productEndpoint = ProductEndpoint;
+            _configHelper = configHelper;
         }
 
         protected override async void OnViewLoaded(object view)
@@ -86,26 +89,48 @@ namespace DZRMDesktopUI.ViewModels
         {
             get
             {                
-                return Cart.ToList()
-                    .Sum(x => x.Product.RetailPrice * x.QuantityInCart).ToString("C");
-                 
-                
+                return CalculateSubTotal().ToString("C");                
             }
 
 
+        }
+
+        private decimal CalculateSubTotal()
+        {
+            return Cart.ToList()
+                    .Sum(x => x.Product.RetailPrice * x.QuantityInCart);
         }
         public string Tax
         {
             get
             {
-                return "$0.00";
+                return CalculateTax().ToString("C");
+
             }
         }
+
+        private decimal CalculateTax()
+        {
+            decimal taxRate = _configHelper.GetTaxRate();
+            decimal taxAmt = 0;
+
+            foreach(var item in Cart)
+            {
+                if (item.Product.IsTaxable)
+                {
+                    taxAmt += ((item.Product.RetailPrice * item.QuantityInCart) * taxRate);
+                }
+            }
+
+            return taxAmt;
+        }
+
         public string Total
         {
             get
             {
-                return "$0.00";
+                var total = CalculateSubTotal() + CalculateTax();
+                return total.ToString("C");
             }
         }
 
@@ -148,7 +173,11 @@ namespace DZRMDesktopUI.ViewModels
             SelectedProduct.QuantityInStock -= ItemQuantity;
             ItemQuantity = 1;
             NotifyOfPropertyChange(() => Cart);
-            NotifyOfPropertyChange(() => SubTotal);
+            NotifyOfPropertyChange(() => SubTotal); 
+            NotifyOfPropertyChange(() => Tax);
+            NotifyOfPropertyChange(() => Total);
+
+
 
         }
 

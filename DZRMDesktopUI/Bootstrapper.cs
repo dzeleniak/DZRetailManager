@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using DZRMDesktopUI.Helpers;
 using DZRMDesktopUI.Library.API;
+using DZRMDesktopUI.Library.Helpers;
 using DZRMDesktopUI.Library.Models;
 using DZRMDesktopUI.ViewModels;
 using System;
@@ -39,7 +40,8 @@ namespace DZRMDesktopUI
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
                 .Singleton<IAPIHelper, APIHelper>()
-                .Singleton<ILoggedInUserModel, LoggedInUserModel>();
+                .Singleton<ILoggedInUserModel, LoggedInUserModel>()
+                .Singleton<IConfigHelper, ConfigHelper>();
 
             GetType().Assembly.GetTypes()
                 .Where(type => type.IsClass)

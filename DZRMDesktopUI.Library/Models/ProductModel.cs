@@ -33,5 +33,10 @@ namespace DZRMDesktopUI.Library.Models
         /// Number of items contained in stock
         /// </summary>
         public int QuantityInStock { get; set; }
+
+        /// <summary>
+        /// Status of if the item is taxable
+        /// </summary>
+        public bool IsTaxable { get; set; }
     }
 }

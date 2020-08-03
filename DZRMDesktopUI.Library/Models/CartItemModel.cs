@@ -18,5 +18,6 @@ namespace DZRMDesktopUI.Library.Models
                 return $"{Product.ProductName} ({QuantityInCart})";
             }
         }
+
     }
 }
