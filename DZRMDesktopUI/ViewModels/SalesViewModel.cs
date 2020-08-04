@@ -114,15 +114,19 @@ namespace DZRMDesktopUI.ViewModels
             decimal taxRate = _configHelper.GetTaxRate();
             decimal taxAmt = 0;
 
-            foreach(var item in Cart)
-            {
-                if (item.Product.IsTaxable)
-                {
-                    taxAmt += ((item.Product.RetailPrice * item.QuantityInCart) * taxRate);
-                }
-            }
+            taxAmt = Cart
+                .Where(x => x.Product.IsTaxable)
+                .Sum(x => x.Product.RetailPrice * x.QuantityInCart * taxRate);
 
             return taxAmt;
+
+            //foreach(var item in Cart)
+            //{
+            //    if (item.Product.IsTaxable)
+            //    {
+            //        taxAmt += ((item.Product.RetailPrice * item.QuantityInCart) * taxRate);
+            //    }
+            //}
         }
 
         public string Total
