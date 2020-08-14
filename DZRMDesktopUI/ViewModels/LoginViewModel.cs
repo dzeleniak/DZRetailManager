@@ -12,7 +12,7 @@ namespace DZRMDesktopUI.ViewModels
 {
     public class LoginViewModel : Screen
     {
-        private string _userName;
+        private string _userName = "zeleniak.david@gmail.com";
         private string _password;
         private IAPIHelper _apiHelper;
         private IEventAggregator _events;
