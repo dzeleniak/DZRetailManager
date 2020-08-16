@@ -1,8 +1,10 @@
-﻿using Caliburn.Micro;
+﻿using AutoMapper;
+using Caliburn.Micro;
 using DZRMDesktopUI.Helpers;
 using DZRMDesktopUI.Library.API;
 using DZRMDesktopUI.Library.Helpers;
 using DZRMDesktopUI.Library.Models;
+using DZRMDesktopUI.Models;
 using DZRMDesktopUI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -30,8 +32,24 @@ namespace DZRMDesktopUI
             );
         }
 
+        private IMapper ConfigureAutoMapper()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProductModel, ProductDisplayModel>();
+                cfg.CreateMap<CartItemModel, CartItemDisplayModel>();
+            });
+
+            var output = config.CreateMapper();
+
+            return output;
+        }
+
         protected override void Configure()
         {
+            
+            _container.Instance(ConfigureAutoMapper());
+
             _container.Instance(_container)
                 .PerRequest<IProductEndpoint, ProductEndpoint>()
                 .PerRequest<ISaleEndpoint, SaleEndpoint>();
