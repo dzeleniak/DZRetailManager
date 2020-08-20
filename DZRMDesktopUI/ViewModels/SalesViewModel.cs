@@ -41,6 +41,17 @@ namespace DZRMDesktopUI.ViewModels
             Products = new BindingList<ProductDisplayModel>(products);
         }
 
+        private async Task ResetSalesViewModel()
+        {
+            Cart = new BindingList<CartItemDisplayModel>();
+            await LoadProducts();
+
+            NotifyOfPropertyChange(() => SubTotal);
+            NotifyOfPropertyChange(() => Tax);
+            NotifyOfPropertyChange(() => Total);
+            NotifyOfPropertyChange(() => CanCheckout);
+        }
+
         private BindingList<ProductDisplayModel> _products;
 
         public BindingList<ProductDisplayModel> Products
@@ -191,6 +202,7 @@ namespace DZRMDesktopUI.ViewModels
             NotifyOfPropertyChange(() => SubTotal); 
             NotifyOfPropertyChange(() => Tax);
             NotifyOfPropertyChange(() => Total);
+            NotifyOfPropertyChange(() => CanRemoveFromCart);
             NotifyOfPropertyChange(() => CanCheckout);
 
         }
@@ -201,7 +213,7 @@ namespace DZRMDesktopUI.ViewModels
             {
                 bool output = false;
 
-                if (SelectedCartItem != null && SelectedCartItem?.Product.QuantityInStock > 0)
+                if (SelectedCartItem != null && SelectedCartItem?.QuantityInCart > 0)
                 {
                     output = true;
                 }
@@ -229,6 +241,7 @@ namespace DZRMDesktopUI.ViewModels
             NotifyOfPropertyChange(() => Tax);
             NotifyOfPropertyChange(() => Total);
             NotifyOfPropertyChange(() => CanCheckout);
+            NotifyOfPropertyChange(() => CanAddToCart);
         }
 
         public bool CanCheckout
@@ -256,6 +269,8 @@ namespace DZRMDesktopUI.ViewModels
             }
 
             await _saleEndPoint.PostSale(sale);
+            
+            await ResetSalesViewModel();
         }
 
     }

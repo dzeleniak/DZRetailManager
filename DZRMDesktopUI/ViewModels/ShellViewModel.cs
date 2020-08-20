@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using DZRMDesktopUI.EventModels;
+using DZRMDesktopUI.Library.Models;
+using DZRMDesktopUI.Views;
 
 namespace DZRMDesktopUI.ViewModels
 {
@@ -12,18 +14,45 @@ namespace DZRMDesktopUI.ViewModels
     {
         private IEventAggregator _events;
         private SalesViewModel _salesVM;
-
-        public ShellViewModel(IEventAggregator events, SalesViewModel salesVM)
+        private ILoggedInUserModel _user;
+        public ShellViewModel(IEventAggregator events, SalesViewModel salesVM, ILoggedInUserModel user)
         {
             _events = events;
             _events.Subscribe(this);
             _salesVM = salesVM;
             ActivateItem(IoC.Get<LoginViewModel>());
+            _user = user;
         }
 
         public void Handle(LogOnEvent message)
         {
             ActivateItem(_salesVM);
+            NotifyOfPropertyChange(() => IsLoggedIn);
+        }
+
+        public void ExitApplication()
+        {
+            TryClose();
+        }
+
+        public void LogOut()
+        {
+            _user.LogOffUser();
+            ActivateItem(IoC.Get<LoginViewModel>());
+            NotifyOfPropertyChange(() => IsLoggedIn);
+        }
+
+        public bool IsLoggedIn 
+        {
+            get
+            {
+                bool output = false;
+                if (string.IsNullOrWhiteSpace(_user.Token) == false) 
+                {
+                    output = true;
+                }
+                return output;
+            } 
         }
     }
 }
