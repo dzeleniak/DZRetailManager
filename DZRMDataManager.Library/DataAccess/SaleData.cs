@@ -57,25 +57,32 @@ namespace DZRMDataManager.Library.DataAccess
             sale.Total = sale.Subtotal + sale.Tax;
 
             // save the sale model
-            SqlDataAccess sql = new SqlDataAccess();
-            sql.SaveData("dbo.spSale_Insert", sale, "DZRMData");
 
-            //Get id from sale model
-            sale.Id = sql.LoadData<int, dynamic>("spSale_Lookup", 
-                new { CashierId = sale.CashierId, 
-                    SaleDate = sale.SaleDate },
-                    "DZRMData").FirstOrDefault();
-
-
-            //Finish filling in sale detail models
-
-            //save sale detail models
-            foreach (var item in details)
+            using (SqlDataAccess sql = new SqlDataAccess())
             {
-                item.SaleId = sale.Id;
-                sql.SaveData("dbo.spSaleDetail_Insert", item, "DZRMData");
-            }
+                try
+                {
+                    sql.StartTransaction("DZRMData");
 
+                    sql.SaveDataInTransaction("dbo.spSale_Insert", sale);
+                    //Get id from sale model
+                    sale.Id = sql.LoadDataInTransaction<int, dynamic>("spSale_Lookup", new { CashierId = sale.CashierId, SaleDate = sale.SaleDate }).FirstOrDefault();
+
+                    //Finish filling in sale detail models
+                    //save sale detail models
+                    foreach (var item in details)
+                    {
+                        item.SaleId = sale.Id;
+                        sql.SaveDataInTransaction("dbo.spSaleDetail_Insert", item);
+                    }
+                } 
+                catch (Exception ex)
+                {
+                    sql.RollbackTransaction();
+                    throw;
+                }
+                
+            }            
 
         }
 
