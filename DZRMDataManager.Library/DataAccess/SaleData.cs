@@ -76,7 +76,7 @@ namespace DZRMDataManager.Library.DataAccess
                         sql.SaveDataInTransaction("dbo.spSaleDetail_Insert", item);
                     }
                 } 
-                catch (Exception ex)
+                catch
                 {
                     sql.RollbackTransaction();
                     throw;
