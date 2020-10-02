@@ -1,2 +1,2 @@
-# DZ Retail Manager
+# Retail Manager
 Retail Management System
